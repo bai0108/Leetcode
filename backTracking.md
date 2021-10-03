@@ -1,5 +1,5 @@
 # BackTracking
 
-> Combination problrm, to find all posibilities.
+> Combination problems, to find all posibilities.
 
-## N Queens
+## 55. N Queens 
