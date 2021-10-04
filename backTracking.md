@@ -193,3 +193,148 @@ class Solution {
     }
 }
 ```
+39. Combination Sum
+
+[leetcode](https://leetcode.com/problems/combination-sum/)
+
+```java
+class Solution {
+    List<List<Integer>> ans;
+    
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        ans = new ArrayList<>();
+        backTracking(0, 0, target, new ArrayList<Integer>(), candidates);
+        return ans;
+    }
+    
+    private void backTracking(int pos, int sum, int target, List<Integer> cur, int[] candid) {
+        if(sum == target) {
+            ans.add(new ArrayList<Integer>(cur));
+            return;
+        }
+        
+        for(int i = pos; i < candid.length;  i++) {
+            sum += candid[i]; 
+            if(sum > target) {
+                sum -= candid[i];
+                continue;
+            }
+            cur.add(candid[i]);
+            backTracking(i, sum, target, cur, candid); 
+            sum -= candid[i];
+            cur.remove(cur.size()-1);
+        }
+    }
+}
+```
+
+46. Permutations
+
+[leetcode](https://leetcode.com/problems/permutations/)
+
+```java
+class Solution {
+  public void backtrack(int n,
+                        ArrayList<Integer> nums,
+                        List<List<Integer>> output,
+                        int first) {
+    // if all integers are used up
+    if (first == n)
+      output.add(new ArrayList<Integer>(nums));
+    for (int i = first; i < n; i++) {
+      // place i-th integer first 
+      // in the current permutation
+      Collections.swap(nums, first, i);
+      // use next integers to complete the permutations
+      backtrack(n, nums, output, first + 1);
+      // backtrack
+      Collections.swap(nums, first, i);
+    }
+  }
+
+  public List<List<Integer>> permute(int[] nums) {
+    // init output list
+    List<List<Integer>> output = new LinkedList();
+
+    // convert nums into list since the output is a list of lists
+    ArrayList<Integer> nums_lst = new ArrayList<Integer>();
+    for (int num : nums)
+      nums_lst.add(num);
+
+    int n = nums.length;
+    backtrack(n, nums_lst, output, 0);
+    return output;
+  }
+}
+```
+
+78. Subsets
+
+[leetcode](https://leetcode.com/problems/subsets/)
+
+```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        ans.add(new ArrayList<Integer>());
+        for(int num: nums) {
+            List<List<Integer>> subset = new ArrayList<>();
+            
+            for(List<Integer> x: ans) {
+                subset.add(new ArrayList<>(x));
+                
+            }
+            
+            for(List<Integer> x: subset) {
+                //
+                //ans.add(x.add(num)); error
+                x.add(num);
+                ans.add(x);
+            }
+            
+            
+        }
+        return ans;
+    }
+}
+```
+
+79. Word Search
+
+[leetcode](https://leetcode.com/problems/word-search/)
+
+```java
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        
+        int rows = board.length;
+        int cols = board[0].length;
+        
+        for(int y=0; y<rows; y++){
+            for(int x=0; x<cols; x++){
+                if(exist(board, word, y, x, 0)) return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean exist(char[][] board, String word, int y, int x, int i) {
+        
+        if(x < 0 || y < 0 || x > board[0].length-1 || y > board.length-1) return false;
+        if(board[y][x] != word.charAt(i)) return false;
+        
+        if(i == word.length() - 1) return true;
+        
+        board[y][x] = '@';
+        boolean result = exist(board, word, y-1, x, i+1)
+            || exist(board, word, y+1, x, i+1)
+            || exist(board, word, y, x-1, i+1)
+            || exist(board, word, y, x+1, i+1);
+        
+        board[y][x] = word.charAt(i);   //Backtrack
+        return result;
+        
+    }
+}
+```
