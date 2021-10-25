@@ -26,8 +26,8 @@ class Solution {
         if (root == null) {
             return;
         }
-        answer.add(root.val);                   // visit the root
         preorderTraversal(root.left, answer);   // traverse left subtree
+        answer.add(root.val);                   // visit the root
         preorderTraversal(root.right, answer);  // traverse right subtree
     }
     public List<Integer> preorderTraversal(TreeNode root) {
