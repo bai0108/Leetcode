@@ -57,7 +57,7 @@ class Solution {
     }
 }
 ```
-### Pre-order Traversal
+### Post-order Traversal
 
 ``` java
 class Solution {
