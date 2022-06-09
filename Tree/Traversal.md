@@ -76,6 +76,8 @@ class Solution {
     }
 }
 ```
+
+### in-order + pre-order or post-order could construct the original tree.
 ## Breadth-First Search
 
 ``` java
